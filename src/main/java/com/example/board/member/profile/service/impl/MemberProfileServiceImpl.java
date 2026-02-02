@@ -36,6 +36,7 @@ public class MemberProfileServiceImpl implements MemberProfileService {
         }
         try {
             memberProfileTxWriter.save(id, command);
+            log.info("회원 프로필 생성: {} {}", command.handle(), command.nickname());
             return new MemberProfileResult.Create.Success();
         } catch (DataIntegrityViolationException e) {
             var constraintName = ExceptionsUtils.findConstraintName(e);
@@ -75,6 +76,7 @@ public class MemberProfileServiceImpl implements MemberProfileService {
         }
         try {
             memberProfileTxWriter.update(id, command);
+            log.info("회원 프로필 수정: {}", command.nickname());
             return new MemberProfileResult.Update.Success();
         } catch (MemberProfileNotFoundException e) {
             return new MemberProfileResult.Update.NotFound();
@@ -85,5 +87,12 @@ public class MemberProfileServiceImpl implements MemberProfileService {
             }
             throw new UnhandledDataIntegrityViolationException(e);
         }
+    }
+
+    @Override
+    public MemberProfileResult.Delete deleteProfile(Long id) {
+        memberProfileRepository.deleteById(id);
+        log.info("회원 프로필 삭제: {}", id);
+        return new MemberProfileResult.Delete.Success();
     }
 }

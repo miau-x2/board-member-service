@@ -9,4 +9,5 @@ public interface MemberProfileService {
     MemberProfileResult.CheckNickname checkNicknameAvailability(String nickname);
     MemberProfileResult.Get getProfile(String handle);
     MemberProfileResult.Update updateProfile(Long id, MemberProfileUpdateCommand command);
+    MemberProfileResult.Delete deleteProfile(Long id);
 }

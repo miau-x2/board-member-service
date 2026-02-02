@@ -80,4 +80,13 @@ public class MemberProfileController {
             case MemberProfileResult.Update.NicknameDuplicate _ -> errorResponse(NICKNAME_DUPLICATED);
         };
     }
+
+    @DeleteMapping("/{member-id}/profile")
+    public ResponseEntity<ApiResponse<Void>> deleteProfile(@PathVariable("member-id") Long id) {
+        var result = memberProfileService.deleteProfile(id);
+
+        return switch (result) {
+            case MemberProfileResult.Delete.Success _ -> successResponse(PROFILE_DELETED);
+        };
+    }
 }
