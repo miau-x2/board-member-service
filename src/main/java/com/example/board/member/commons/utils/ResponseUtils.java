@@ -4,7 +4,7 @@ import com.example.board.member.commons.response.ApiCode;
 import com.example.board.member.commons.response.ApiResponse;
 import org.springframework.http.ResponseEntity;
 
-public class ResponseUtils {
+public final class ResponseUtils {
     private ResponseUtils() {}
     public static <T> ResponseEntity<ApiResponse<T>> successResponse(ApiCode code) {
         return ResponseEntity.status(code.getHttpStatus()).body(ApiResponse.success(code));
