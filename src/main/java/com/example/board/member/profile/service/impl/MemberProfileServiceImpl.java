@@ -78,7 +78,7 @@ public class MemberProfileServiceImpl implements MemberProfileService {
             memberProfileTxWriter.update(id, command);
             log.info("회원 프로필 수정: {}", command.nickname());
             return new MemberProfileResult.Update.Success();
-        } catch (MemberProfileNotFoundException e) {
+        } catch (MemberProfileNotFoundException _) {
             return new MemberProfileResult.Update.NotFound();
         } catch (DataIntegrityViolationException e) {
             var constraintName = ExceptionsUtils.findConstraintName(e);

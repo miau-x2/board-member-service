@@ -6,7 +6,6 @@ import com.example.board.member.profile.repository.MemberProfileRepository;
 import com.example.board.member.profile.service.command.MemberProfileCreateCommand;
 import com.example.board.member.profile.service.command.MemberProfileUpdateCommand;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

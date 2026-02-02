@@ -40,10 +40,10 @@ class MemberProfileServiceTest {
         var actual = memberProfileService.createProfileIfNotExists(id, command);
         assertThat(actual).isInstanceOf(MemberProfileResult.Create.Success.class);
 
-        verify(memberProfileRepository, times(1)).existsById(id);
-        verify(memberProfileRepository, times(1)).existsByHandle(command.handle());
-        verify(memberProfileRepository, times(1)).existsByNickname(command.nickname());
-        verify(memberProfileTxWriter, times(1)).save(id, command);
+        verify(memberProfileRepository).existsById(id);
+        verify(memberProfileRepository).existsByHandle(command.handle());
+        verify(memberProfileRepository).existsByNickname(command.nickname());
+        verify(memberProfileTxWriter).save(id, command);
     }
 
     @Test
@@ -56,7 +56,7 @@ class MemberProfileServiceTest {
         var actual = memberProfileService.createProfileIfNotExists(id, command);
         assertThat(actual).isInstanceOf(MemberProfileResult.Create.AlreadyExists.class);
 
-        verify(memberProfileRepository, times(1)).existsById(id);
+        verify(memberProfileRepository).existsById(id);
         verify(memberProfileRepository, never()).existsByHandle(command.handle());
         verify(memberProfileRepository, never()).existsByNickname(command.nickname());
         verify(memberProfileTxWriter, never()).save(id, command);
@@ -76,10 +76,10 @@ class MemberProfileServiceTest {
         var actual = memberProfileService.createProfileIfNotExists(id, command);
         assertThat(actual).isInstanceOf(MemberProfileResult.Create.AlreadyExists.class);
 
-        verify(memberProfileRepository, times(1)).existsById(id);
-        verify(memberProfileRepository, times(1)).existsByHandle(command.handle());
-        verify(memberProfileRepository, times(1)).existsByNickname(command.nickname());
-        verify(memberProfileTxWriter, times(1)).save(id, command);
+        verify(memberProfileRepository).existsById(id);
+        verify(memberProfileRepository).existsByHandle(command.handle());
+        verify(memberProfileRepository).existsByNickname(command.nickname());
+        verify(memberProfileTxWriter).save(id, command);
     }
 
     @Test
@@ -93,8 +93,8 @@ class MemberProfileServiceTest {
         var actual = memberProfileService.createProfileIfNotExists(id, command);
         assertThat(actual).isInstanceOf(MemberProfileResult.Create.HandleDuplicate.class);
 
-        verify(memberProfileRepository, times(1)).existsById(id);
-        verify(memberProfileRepository, times(1)).existsByHandle(command.handle());
+        verify(memberProfileRepository).existsById(id);
+        verify(memberProfileRepository).existsByHandle(command.handle());
         verify(memberProfileRepository, never()).existsByNickname(command.nickname());
         verify(memberProfileTxWriter, never()).save(id, command);
     }
@@ -113,10 +113,10 @@ class MemberProfileServiceTest {
         var actual = memberProfileService.createProfileIfNotExists(id, command);
         assertThat(actual).isInstanceOf(MemberProfileResult.Create.HandleDuplicate.class);
 
-        verify(memberProfileRepository, times(1)).existsById(id);
-        verify(memberProfileRepository, times(1)).existsByHandle(command.handle());
-        verify(memberProfileRepository, times(1)).existsByNickname(command.nickname());
-        verify(memberProfileTxWriter, times(1)).save(id, command);
+        verify(memberProfileRepository).existsById(id);
+        verify(memberProfileRepository).existsByHandle(command.handle());
+        verify(memberProfileRepository).existsByNickname(command.nickname());
+        verify(memberProfileTxWriter).save(id, command);
     }
 
     @Test
@@ -131,9 +131,9 @@ class MemberProfileServiceTest {
         var actual = memberProfileService.createProfileIfNotExists(id ,command);
         assertThat(actual).isInstanceOf(MemberProfileResult.Create.NicknameDuplicate.class);
 
-        verify(memberProfileRepository, times(1)).existsById(id);
-        verify(memberProfileRepository, times(1)).existsByHandle(command.handle());
-        verify(memberProfileRepository, times(1)).existsByNickname(command.nickname());
+        verify(memberProfileRepository).existsById(id);
+        verify(memberProfileRepository).existsByHandle(command.handle());
+        verify(memberProfileRepository).existsByNickname(command.nickname());
         verify(memberProfileTxWriter, never()).save(id, command);
     }
 
@@ -151,10 +151,10 @@ class MemberProfileServiceTest {
         var actual = memberProfileService.createProfileIfNotExists(id, command);
         assertThat(actual).isInstanceOf(MemberProfileResult.Create.NicknameDuplicate.class);
 
-        verify(memberProfileRepository, times(1)).existsById(id);
-        verify(memberProfileRepository, times(1)).existsByHandle(command.handle());
-        verify(memberProfileRepository, times(1)).existsByNickname(command.nickname());
-        verify(memberProfileTxWriter, times(1)).save(id, command);
+        verify(memberProfileRepository).existsById(id);
+        verify(memberProfileRepository).existsByHandle(command.handle());
+        verify(memberProfileRepository).existsByNickname(command.nickname());
+        verify(memberProfileTxWriter).save(id, command);
     }
 
     private DataIntegrityViolationException createDataIntegrityViolationException(String constraintName) {
