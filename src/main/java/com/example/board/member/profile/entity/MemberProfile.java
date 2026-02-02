@@ -1,5 +1,6 @@
 package com.example.board.member.profile.entity;
 
+import com.example.board.member.commons.utils.DatabaseConstraintName;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -12,7 +13,12 @@ import java.time.LocalDateTime;
 
 @Getter
 @Entity
-@Table(name = "member_profile")
+@Table(
+        name = "member_profile",
+        uniqueConstraints = {
+        @UniqueConstraint(name = DatabaseConstraintName.MemberProfile.HANDLE, columnNames = "handle"),
+        @UniqueConstraint(name = DatabaseConstraintName.MemberProfile.NICKNAME, columnNames = "nickname")
+})
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLDelete(sql = "UPDATE member_profile SET withdrawn_at = NOW() WHERE member_id = ?")
 @SQLRestriction("withdrawn_at IS NULL")
