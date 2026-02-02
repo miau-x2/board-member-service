@@ -1,4 +1,4 @@
-package com.example.board.member.service.config.datasource;
+package com.example.board.member.config.datasource;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;

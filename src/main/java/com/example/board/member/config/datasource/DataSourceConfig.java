@@ -1,4 +1,4 @@
-package com.example.board.member.service.config.datasource;
+package com.example.board.member.config.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
