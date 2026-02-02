@@ -1,4 +1,4 @@
-package com.example.board.member.service.config.datasource;
+package com.example.board.member.config.datasource;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Order(Ordered.HIGHEST_PRECEDENCE) // 트랜잭션(@Transactional)보다 먼저 실행되어야 함
 public class DataSourceAspect {
 
-    @Around("@annotation(com.example.board.member.service.config.datasource.ForcePrimary)")
+    @Around("@annotation(com.example.board.member.config.datasource.ForcePrimary)")
     public Object forcePrimaryDataSource(ProceedingJoinPoint joinPoint) throws Throwable {
         return ScopedValue.where(ScopedValueDataSourceContextHolder.ROUTING_KEY, DataSourceType.READ_WRITE)
                 .call(joinPoint::proceed);
