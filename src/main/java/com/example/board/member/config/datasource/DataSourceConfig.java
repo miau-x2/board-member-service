@@ -1,4 +1,4 @@
-package com.example.board.member.service.config.datasource;
+package com.example.board.member.config.datasource;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,11 +7,13 @@ import org.springframework.boot.jdbc.autoconfigure.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 
 import javax.sql.DataSource;
 import java.util.HashMap;
 
+@Profile("!test")
 @Configuration(proxyBeanMethods = false)
 public class DataSourceConfig {
 

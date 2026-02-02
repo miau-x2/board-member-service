@@ -1,4 +1,4 @@
-package com.example.board.member.service.config.datasource;
+package com.example.board.member.config.datasource;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

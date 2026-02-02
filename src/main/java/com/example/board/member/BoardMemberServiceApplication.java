@@ -1,4 +1,4 @@
-package com.example.board.member.service;
+package com.example.board.member;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
