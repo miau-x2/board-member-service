@@ -9,8 +9,9 @@ public enum MemberProfileSuccessCode implements ApiCode {
     PROFILE_FOUND("MEMBER_PROFILE_200_001", "회원 프로필 조회", HttpStatus.OK),
     PROFILES_FOUND("MEMBER_PROFILE_200_002", "회원 프로필 목록 조회", HttpStatus.OK),
     PROFILE_UPDATED("MEMBER_PROFILE_200_003", "회원 프로필 변경", HttpStatus.NO_CONTENT),
-    PROFILE_DELETED("MEMBER_PROFILE_200_004", "회원 프로필 삭제", HttpStatus.OK),
-    NICKNAME_AVAILABILITY_CHECKED("MEMBER_PROFILE_200_005", "회원 닉네임 중복 확인", HttpStatus.OK)
+    PROFILE_SOFT_DELETED("MEMBER_PROFILE_200_004", "회원 프로필 소프트 삭제", HttpStatus.OK),
+    PROFILE_HARD_DELETED("EMBER_PROFILE_200_005", "회원 프로필 하드 삭제", HttpStatus.OK),
+    NICKNAME_AVAILABILITY_CHECKED("MEMBER_PROFILE_200_006", "회원 닉네임 중복 확인", HttpStatus.OK)
     ;
 
     private final String code;

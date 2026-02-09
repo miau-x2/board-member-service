@@ -19,12 +19,17 @@ public sealed interface MemberProfileResult {
         record NicknameDuplicate() implements Update {}
     }
 
-    sealed interface Delete extends MemberProfileResult {
-        record Success() implements Delete {}
+    sealed interface SoftDelete extends MemberProfileResult {
+        record Success() implements SoftDelete {}
     }
+
+    sealed interface HardDelete extends MemberProfileResult {
+        record Success() implements HardDelete {}
+    }
+
     // 나중에 정책 추가 가능 (ex: 금칙어)
     sealed interface CheckNickname extends MemberProfileResult {
         record Available(String message) implements CheckNickname {}
-        record Used(String message) implements CheckNickname {}
+        record Unavailable(String message) implements CheckNickname {}
     }
 }
