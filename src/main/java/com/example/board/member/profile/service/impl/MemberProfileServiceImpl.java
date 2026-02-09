@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
 @Service
@@ -56,7 +57,7 @@ public class MemberProfileServiceImpl implements MemberProfileService {
     @Override
     public MemberProfileResult.CheckNickname checkNicknameAvailability(String nickname) {
         if(memberProfileRepository.existsByNickname(nickname)) {
-            return new MemberProfileResult.CheckNickname.Used("이미 사용 중인 닉네임입니다.");
+            return new MemberProfileResult.CheckNickname.Unavailable("이미 사용 중인 닉네임입니다.");
         }
         return new MemberProfileResult.CheckNickname.Available("사용 가능한 닉네임입니다.");
     }
@@ -90,9 +91,17 @@ public class MemberProfileServiceImpl implements MemberProfileService {
     }
 
     @Override
-    public MemberProfileResult.Delete deleteProfile(Long id) {
+    public MemberProfileResult.SoftDelete softDeleteProfile(Long id) {
         memberProfileRepository.deleteById(id);
-        log.info("회원 프로필 삭제: {}", id);
-        return new MemberProfileResult.Delete.Success();
+        log.info("[SOFT] 회원 프로필 삭제: {}", id);
+        return new MemberProfileResult.SoftDelete.Success();
+    }
+
+    @Override
+    @Transactional
+    public MemberProfileResult.HardDelete hardDeleteProfile(Long id) {
+        memberProfileRepository.physicalDeleteById(id);
+        log.info("[HARD] 회원 프로필 삭제: {}", id);
+        return new MemberProfileResult.HardDelete.Success();
     }
 }

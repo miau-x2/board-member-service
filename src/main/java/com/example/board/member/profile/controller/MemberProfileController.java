@@ -4,7 +4,7 @@ import com.example.board.member.commons.response.ApiResponse;
 import com.example.board.member.profile.controller.dto.request.MemberProfileCreateRequest;
 import com.example.board.member.profile.controller.dto.request.MemberProfileUpdateRequest;
 import com.example.board.member.profile.controller.dto.response.MemberProfileGetResponse;
-import com.example.board.member.profile.controller.dto.response.MemberProfileNicknameCheckResponse;
+import com.example.board.member.profile.controller.dto.response.NicknameAvailabilityResponse;
 import com.example.board.member.profile.service.MemberProfileService;
 import com.example.board.member.profile.service.command.MemberProfileCreateCommand;
 import com.example.board.member.profile.service.command.MemberProfileUpdateCommand;
@@ -42,21 +42,21 @@ public class MemberProfileController {
         };
     }
 
-    @GetMapping("/nickname/availability")
-    public ResponseEntity<ApiResponse<MemberProfileNicknameCheckResponse>> checkNicknameAvailability(
-            @RequestParam
+    @GetMapping("/check-nickname")
+    public ResponseEntity<ApiResponse<NicknameAvailabilityResponse>> checkNicknameAvailability(
             @NotBlank(message = "닉네임을 입력해주세요.")
             @Size(min = 2, max = 20, message = "닉네임은 2~20자입니다.")
             @Pattern(
                     regexp = "^[a-z0-9가-힣]+$",
                     message = "닉네임은 한글, 영문 소문자, 숫자만 사용할 수 있습니다."
             )
+            @RequestParam
             String nickname) {
         var result = memberProfileService.checkNicknameAvailability(nickname);
 
         return switch (result) {
-            case MemberProfileResult.CheckNickname.Available(var message) -> successResponse(NICKNAME_AVAILABILITY_CHECKED, MemberProfileNicknameCheckResponse.available(message));
-            case MemberProfileResult.CheckNickname.Used(var message) -> successResponse(NICKNAME_AVAILABILITY_CHECKED, MemberProfileNicknameCheckResponse.used(message));
+            case MemberProfileResult.CheckNickname.Available(var message) -> successResponse(NICKNAME_AVAILABILITY_CHECKED, NicknameAvailabilityResponse.available(message));
+            case MemberProfileResult.CheckNickname.Unavailable(var message) -> successResponse(NICKNAME_AVAILABILITY_CHECKED, NicknameAvailabilityResponse.unavailable(message));
         };
     }
 
@@ -82,11 +82,20 @@ public class MemberProfileController {
     }
 
     @DeleteMapping("/{member-id}/profile")
-    public ResponseEntity<ApiResponse<Void>> deleteProfile(@PathVariable("member-id") Long id) {
-        var result = memberProfileService.deleteProfile(id);
+    public ResponseEntity<ApiResponse<Void>> softDeleteProfile(@PathVariable("member-id") Long id) {
+        var result = memberProfileService.softDeleteProfile(id);
 
         return switch (result) {
-            case MemberProfileResult.Delete.Success _ -> successResponse(PROFILE_DELETED);
+            case MemberProfileResult.SoftDelete.Success _ -> successResponse(PROFILE_SOFT_DELETED);
+        };
+    }
+
+    @DeleteMapping("/internal/{member-id}/profile")
+    public ResponseEntity<ApiResponse<Void>> hardDeleteProfile(@PathVariable("member-id") Long id) {
+        var result = memberProfileService.hardDeleteProfile(id);
+
+        return switch (result) {
+            case MemberProfileResult.HardDelete.Success _ -> successResponse(PROFILE_HARD_DELETED);
         };
     }
 }
